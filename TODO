@@ -1,8 +1,7 @@
-Must Do:
-0. add min and max number of clusters option
-1. optimize linear equation fortran call 
-May Do:
-0. add a summary method for profLinear
-1. add a plot method for profLinear
-2. modify code and add functions for interfacing with C functions
-
+!Critical!
+!Feature!
+- add formula method to profLinear
+- document lambda functionality
+- add min and max number of clusters option
+- add a summary method for profLinear
+- group need not be ordered on call to profLinear C routine

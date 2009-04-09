@@ -1,4 +1,4 @@
-#include "util.h"
+#include "profdpm.h"
 
 /* stats */
 
@@ -12,72 +12,33 @@
    Jolley, L.B.W. (1961) Summation of Series. pp. 28
    ISBN 0-486-60023-8 
 */
-
 double lfactorial(unsigned int x) {
   if( x == 0 ) { return 0; }
   return ( LN_SQRT_2PI + (0.5 + x)*log(x) - x );
 }
 
-double factorial(unsigned int x) {
-  return(exp(lfactorial(x)));
-}
-
-double mean(double * vec, unsigned int size) {
-  double *it, sum = 0;
-  for(it = vec; it < vec + size; it++) { sum += *it; }
-  return( sum / size );
-}
-
-double sumsq(double * vec, unsigned int size) {
-  double *it, avg, dif, sum = 0;
-  avg = mean(vec, size);
-  for(it = vec; it < vec + size; it++) { 
-    dif = *it-avg; 
-    sum += dif * dif; 
+/* 
+  Draw an integer at random from 0..(n-1), where the log
+  probability of selecting integer k is stored in logp[k]
+*/
+unsigned int rlcat( double * logp, unsigned int n ) {
+  unsigned int i, j, ret = n-1;
+  double low=0, high, u;
+  u = rlcat_runif(0.0, 1.0);
+  for( i = 0; i < n; high=0, i++ ) {
+    for( j = 0; j < n; j++ ) {
+      high += exp( logp[ j ] - logp[ i ] );
+    }
+    high = low + 1/high;
+    if( u >= low && u < high ) { 
+      ret = i;
+      break; 
+    }
+    low = high;
   }
-  return( sum );
+  return ret;
 }
 
-
-double stdev(double * vec, unsigned int size) {
-  return( sumsq(vec, size) / (size - 1) );
-}
-  
-
-/* string */
-
-void strip_all(char * str) {
-  unsigned int cnt = 0;
-  do {
-    if( ' ' == *str || '\t' == *str ) { cnt++; }
-    else { *(str - cnt) = *str; } 
-  } while( '\0' != *(str++) );
-}
-
-void strip_front(char * str) {
-  int cnt;
-  if( ' ' != *str && '\t' != *str ) { return; }
-  else {str++; cnt = 1;}
-  do { 
-    if( ( ' ' == *str || '\t' == *str ) && cnt > 0) { cnt++; }
-    else { if(cnt > 0) { cnt = -cnt; } *(str + cnt) = *str; }
-  } while ('\0' != *(str++) );
-} 
-
-void strip_rear(char * str) {
-  unsigned int cnt = 0;
-  while( '\0' != *str ) {
-    if( ' ' != *str && '\t' != *str ) { cnt = 0; }
-    else { cnt++; }
-    str++;
-  } 
-  *(str - cnt) = '\0';
-}
-
-void strip_both(char * str) {
-  strip_front(str);
-  strip_rear(str);
-} 
 /* R */
 
 SEXP getListElementByName(SEXP list, const char * name) {
