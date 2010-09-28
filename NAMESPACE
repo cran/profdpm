@@ -1,0 +1,4 @@
+export(profLinear,profBinary,pci)
+S3method(summary, profLinear)
+S3method(summary, profBinary)
+useDynLib(profdpm)
