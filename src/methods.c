@@ -262,7 +262,11 @@ void method_gibbs( pdpm_t * obj, int maxiter, double crit) {
         if(stopcrit != DBL_MAX) stopcrit *= 0.95;
     }
     if(stopcrit <= crit) obj->flags |= FLAG_OPTCRIT;
-    //restore
+
+    //return if in sampler mode
+    if(obj->flags & FLAG_SAMPLER) return;
+
+    //move to MAP estimate
     obj->logpval = logp_best;
     for( grp = 0; grp < obj->ngr; grp++ )
         obj->move( obj, grp, vcl_best[ grp ] );  

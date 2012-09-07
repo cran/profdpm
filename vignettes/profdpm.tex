@@ -191,78 +191,75 @@ Equation~\ref{posterior_stats} isolates the influence of prior parameters on pos
 The following example simulates a dataset consisting of $99$ longitudinal measurements on $33$ units of observation, or subjects. Each subject is measured at three times, drawn uniformly and independently from the unit interval. Each of the three measurements per subject are drawn independently from the normal distribution with one of three linear mean functions of time, and with unit variance. The linear mean functions vary by intercept and slope. The longitudinal structure imposes a grouping among measurements on a single subject. Observations grouped in this way should always cluster together. A grouping structure is specified using the \code{group} parameter; a factor that behaves similarly to the \code{groups} parameter of \pkg{lattice} graphics functions. For the PPM of conjugate binary models, the grouping structure is imposed by the model formula. More specifically, grouped observations correspond to rows of the model matrix, resulting from a call to \code{model.matrix} on the formula passed to \code{profBinary}. Hence, the \code{profBinary} function does not have a \code{group} parameter in its prototype.
 
 The goal of the following example is to recover the simulated partition and to create simultaneous 95\% credible bands for the mean within each cluster. The following \proglang{R} code block creates and fits the simulated dataset. To ensure that the figures and statistics presented in this document are more reproducible, the pseudo random number generator seed is fixed. 
-<<echo=FALSE>>=
-options(prompt = "R> ")
-options(continue = "R+ ")
-@
-<<>>=
-set.seed(42)
-
-sim <- function(multiplier = 1) {
-    x <- as.matrix(runif(99))
-    a <- multiplier * c(5,0,-5)
-    s <- multiplier * c(-10,0,10)
-    y <- c(a[1]+s[1]*x[1:33],
-           a[2]+s[2]*x[34:66],
-           a[3]+s[3]*x[67:99]) + rnorm(99)
-    group <- rep(1:33, rep(3,33))
-    return(data.frame(x=x,y=y,gr=group))
-}
-dat <- sim()
-library("profdpm")
-fitL <- profLinear(y ~ x, group=gr, data=dat)
-@
+\begin{Schunk}
+\begin{Sinput}
+R> set.seed(42)
+R> sim <- function(multiplier = 1) {
+R+     x <- as.matrix(runif(99))
+R+     a <- multiplier * c(5,0,-5)
+R+     s <- multiplier * c(-10,0,10)
+R+     y <- c(a[1]+s[1]*x[1:33],
+R+            a[2]+s[2]*x[34:66],
+R+            a[3]+s[3]*x[67:99]) + rnorm(99)
+R+     group <- rep(1:33, rep(3,33))
+R+     return(data.frame(x=x,y=y,gr=group))
+R+ }
+R> dat <- sim()
+R> library("profdpm")
+R> fitL <- profLinear(y ~ x, group=gr, data=dat)
+\end{Sinput}
+\end{Schunk}
 The \code{profLinear} function returns an object of class \code{profLinear}. The \code{summary.profLinear} method prints and returns (invisibly) summary information regarding the estimated product partition model, including 95\% credible intervals for the linear coefficients under a Laplace approximation to the profile posterior distribution.
 
 Figure~\ref{fig:sim1} presents the simulated data in a scatterplot. For each cluster identified in the estimated partition, the profile posterior mean is represented by a dashed line. Simultaneous $95\%$ credible bands (using ``Method 3'' of \citet{HansonMcMillan2012}) are represented by flanking solid lines.
 
-<<label=figSim1, include=FALSE, eval=FALSE>>=
-sfitL <- summary(fitL)
-plot(fitL$x[,2], fitL$y, col=grey(0.9), xlab='x', ylab='y')
-for(grp in unique(fitL$group)) {
-    ind <- which(fitL$group==grp)
-    ord <- order(fitL$x[ind,2])
-    lines(fitL$x[ind,2][ord],
-          fitL$y[ind][ord],
-          col=grey(0.9))
-}
-for(cls in 1:length(sfitL)) {
-    # The following implements the (3rd) method of
-    # Hanson & McMillan (2012) for simultaneous credible bands
-    
-    # Generate coefficients from profile posterior
-    n   <- 1e4
-    tau <- rgamma(n, shape=fitL$a[[cls]]/2, scale=2/fitL$b[[cls]])
-    muz <- matrix(rnorm(n*2, 0, 1),n,2)
-    mus <- (muz / sqrt(tau)) %*% chol(solve(fitL$s[[cls]]))
-    mu  <- outer(rep(1,n), fitL$m[[cls]]) + mus  
-    
-    # Compute Mahalanobis distances
-    mhd <- rowSums(muz^2)
-    
-    # Find the smallest 95% in terms of Mahalanobis distance
-    # I.e., a 95% credible region for mu
-    ord <- order(mhd, decreasing=TRUE)[-(1:floor(n*0.05))]
-    mu  <- mu[ord,]
-    
-    #Compute the 95% credible band
-    plotx <- seq(min(dat$x), max(dat$x), length.out=200)
-    ral  <- apply(mu, 1, function(m) m[1] + m[2] * plotx)
-    rlo  <- apply(ral, 1, min)
-    rhi  <- apply(ral, 1, max)
-    rmd  <- fitL$m[[cls]][1] + fitL$m[[cls]][2] * plotx
-    
-    lines(plotx, rmd, col=cls, lty=2)
-    lines(plotx, rhi, col=cls)
-    lines(plotx, rlo, col=cls)
-}
-@
+\begin{Schunk}
+\begin{Sinput}
+R> sfitL <- summary(fitL)
+R> plot(fitL$x[,2], fitL$y, col=grey(0.9), xlab='x', ylab='y')
+R> for(grp in unique(fitL$group)) {
+R+     ind <- which(fitL$group==grp)
+R+     ord <- order(fitL$x[ind,2])
+R+     lines(fitL$x[ind,2][ord],
+R+           fitL$y[ind][ord],
+R+           col=grey(0.9))
+R+ }
+R> for(cls in 1:length(sfitL)) {
+R+     # The following implements the (3rd) method of
+R+     # Hanson & McMillan (2012) for simultaneous credible bands
+R+     
+R+     # Generate coefficients from profile posterior
+R+     n   <- 1e4
+R+     tau <- rgamma(n, shape=fitL$a[[cls]]/2, scale=2/fitL$b[[cls]])
+R+     muz <- matrix(rnorm(n*2, 0, 1),n,2)
+R+     mus <- (muz / sqrt(tau)) %*% chol(solve(fitL$s[[cls]]))
+R+     mu  <- outer(rep(1,n), fitL$m[[cls]]) + mus  
+R+     
+R+     # Compute Mahalanobis distances
+R+     mhd <- rowSums(muz^2)
+R+     
+R+     # Find the smallest 95% in terms of Mahalanobis distance
+R+     # I.e., a 95% credible region for mu
+R+     ord <- order(mhd, decreasing=TRUE)[-(1:floor(n*0.05))]
+R+     mu  <- mu[ord,]
+R+     
+R+     #Compute the 95% credible band
+R+     plotx <- seq(min(dat$x), max(dat$x), length.out=200)
+R+     ral  <- apply(mu, 1, function(m) m[1] + m[2] * plotx)
+R+     rlo  <- apply(ral, 1, min)
+R+     rhi  <- apply(ral, 1, max)
+R+     rmd  <- fitL$m[[cls]][1] + fitL$m[[cls]][2] * plotx
+R+     
+R+     lines(plotx, rmd, col=cls, lty=2)
+R+     lines(plotx, rhi, col=cls)
+R+     lines(plotx, rlo, col=cls)
+R+ }
+\end{Sinput}
+\end{Schunk}
 
 \begin{figure}[h!]
 \begin{center}
-<<fig=TRUE, echo=FALSE, results=hide>>=
-<<figSim1>>
-@
+\includegraphics{profdpm-004}
 \end{center}
 \caption{Scatterplot of three simulated linear subgroups. Mean estimates (dashed) and $95\%$ credible intervals (solid) are presented, conditional on the data partition estimated using the \code{profLinear} function. \label{fig:sim1}}
 \end{figure}
@@ -276,11 +273,17 @@ Consider two partitions represented by the cluster assignments $\bz_a$ and $\bz_
 The Rand index is the most intuitive. It is the proportion of concordant observation pairs: \[\frac{n_{11}+n_{00}}{n_{11}+n_{00}+n_{01}+n_{10}}.\] The Fowlkes and Mallows index is given by \[\frac{n_{11}}{\sqrt{(n_{11}+n_{01})(n_{11}+n_{10})}}.\] The Wallace indices are respectively given by \[\frac{n_{11}}{n_{11}+n_{10}} \quad \mathrm{and} \quad \frac{n_{11}}{n_{11}+n_{01}}.\] The Jaccard index is given by \[\frac{n_{11}}{n_{11}+n_{01}+n_{10}}.\] Each of these indices take values in the closed interval $[0,1]$, where larger values indicate greater agreement. The cited works, and the associated discussions consider the relative merits of each index.
 
 The \code{pci} function computes each of the partition comparison indices. The returned value is a named vector, where the names indicate the index computed. The Rand, Fowlkes and Mallows, Wallace, and Jaccard indices are abbreviated by \code{R}, \code{FM}, \code{W10}, \code{W01}, and \code{J} respectively. The following demonstrates the \code{pci} function using the estimated and simulated partitions of the previous example.
-<<>>=
-simulatedPartL <- rep(1:3, rep(33,3))
-estimatedPartL <- fitL$clust
-pci(simulatedPartL, estimatedPartL)
-@
+\begin{Schunk}
+\begin{Sinput}
+R> simulatedPartL <- rep(1:3, rep(33,3))
+R> estimatedPartL <- fitL$clust
+R> pci(simulatedPartL, estimatedPartL)
+\end{Sinput}
+\begin{Soutput}
+        R        FM       W10       W01         J 
+0.9257885 0.8863636 0.8863636 0.8863636 0.7959184 
+\end{Soutput}
+\end{Schunk}
 
 The estimated partition has good agreement with the simulated partition in the example above, partly due to the large differences in slopes of the simulated linear mean functions relative to the error variance. The grouping structure among longitudinal observations reduces the partition space complexity, further promoting recovery of the simulated partition. 
 
@@ -288,28 +291,28 @@ The estimated partition has good agreement with the simulated partition in the e
 
 The next example assesses the sensitivity of simulated partition recovery to reduced heterogeneity in the simulated mean functions. The three sets of coefficients in the last example were $(5,-10)$, $(0, 0)$, and $(-5, 10)$. Hence, heterogeneity is reduced by multiplying each coefficient by a proportion. The following \proglang{R} code evaluates the Rand index between the estimated and simulated partition in a series of simulated datasets with reduced coefficient heterogeneity.
 
-<<label=figSim2, include=FALSE, keep.source=TRUE, eval=FALSE>>=
-mult <- rep(seq(1, 0.01, length.out=33), 10)
-Rand <- sapply(mult, function(mult) {
-    dat <- sim(mult)
-    fit <- profLinear(y ~ x, group=gr, data=dat) 
-    pci(rep(1:3, rep(33,3)), fit$clust)['R']
-})
-lws <- lowess(x=mult,y=Rand)
-plot(lws$x, lws$y, type='n',
-     xlab='coefficient multiplier', ylab='Rand index')
-points(mult + rnorm(length(mult),0,1/200),
-     Rand + rnorm(length(Rand),0,1/200), col=grey(0.9))
-lines(lws$x, lws$y)
-@  
+\begin{Schunk}
+\begin{Sinput}
+R> mult <- rep(seq(1, 0.01, length.out=33), 10)
+R> Rand <- sapply(mult, function(mult) {
+R+     dat <- sim(mult)
+R+     fit <- profLinear(y ~ x, group=gr, data=dat) 
+R+     pci(rep(1:3, rep(33,3)), fit$clust)['R']
+R+ })
+R> lws <- lowess(x=mult,y=Rand)
+R> plot(lws$x, lws$y, type='n',
+R+      xlab='coefficient multiplier', ylab='Rand index')
+R> points(mult + rnorm(length(mult),0,1/200),
+R+      Rand + rnorm(length(Rand),0,1/200), col=grey(0.9))
+R> lines(lws$x, lws$y)
+\end{Sinput}
+\end{Schunk}
 
 Figure~\ref{fig:sim2} illustrates the effect of reduced coefficient heterogeneity on the Rand index between estimated and simulated partitions. Clearly, it is increasingly difficult to recover the simulated partition when the mean functions are more alike. Limited or absent grouping information may also hinder recovery of the simulated partition. 
 
 \begin{figure}[h!]
 \begin{center}
-<<fig=TRUE, echo=FALSE>>=
-<<figSim2>>
-@
+\includegraphics{profdpm-007}
 \end{center}
 \caption{Scatterplot of Rand indices (between estimated and simulated partitions) versus slope multiplier. Smaller coefficient multipliers reduce the heterogeneity among the simulated clusters. Light gray points represent simulated datasets. Jitter was added to aid in visual discrimination. The black line is a LOWESS estimate of the trend in Rand index versus coefficient multiplier. For $\alpha$ less than 0.3, the partition estimates mostly consisted of a single cluster. \label{fig:sim2}}
 \end{figure}
@@ -327,13 +330,15 @@ where $n_k$ is the number of observations assigned to the $k^{th}$ cluster, and 
 
 \subsection[Example]{\code{profBinary} Example}
 The following \proglang{R} code block simulates a multiple binary outcome dataset with two latent clusters. Each row in the dataset corresponds to a single multivariate binary observation. The \code{profBinary} function automatically clusters observations in a single row. Hence, a \code{group} argument is unnecessary, and not implemented. The outcomes used for partitioning are specified using a one-sided formula.
-<<keep.source=TRUE>>=
-p <- seq(0.9,0.1,length.out=9)
-y1 <- matrix(rbinom(999, 1, p), 111, 9, TRUE)
-y2 <- matrix(rbinom(999, 1, rev(p)), 111, 9, TRUE)
-dat <- as.data.frame(rbind(y1, y2))
-fitb <- profBinary(~0+., data=dat)
-@
+\begin{Schunk}
+\begin{Sinput}
+R> p <- seq(0.9,0.1,length.out=9)
+R> y1 <- matrix(rbinom(999, 1, p), 111, 9, TRUE)
+R> y2 <- matrix(rbinom(999, 1, rev(p)), 111, 9, TRUE)
+R> dat <- as.data.frame(rbind(y1, y2))
+R> fitb <- profBinary(~0+., data=dat)
+\end{Sinput}
+\end{Schunk}
 
 Conditional on the estimated partition, the outcome probabilities for each cluster are independently beta distributed {\it a posteriori}. The parameters of the profile posterior distribution for each cluster may be accessed in the return value of \code{profBinary}. In a fashion similar to \code{summary.profLinear}, the \code{summary.profBinary} method computes and prints the profile posterior means and 95\% credible limits of the outcome probabilities for each cluster.
 
@@ -342,27 +347,26 @@ Conditional on the estimated partition, the outcome probabilities for each clust
 The value of the DPM precision parameter $\alpha$ has a significant effect on simulated partition recovery in the last example. To illustrate, consider repeating the analysis under a sequence of values for $\alpha$. Figure~\ref{fig:sim3} presents the Rand index as a function of $\alpha$.
 
 
-<<label=figSim3, include=FALSE, keep.source=TRUE>>=
-alpha <- 10^(-seq(0, 40, length.out=33))
-Rand <- sapply(alpha, function(alpha) {
-    fit <- profBinary(~0+., data=dat, param=list(alpha=alpha))
-    pci(rep(1:2, rep(111,2)), fit$clust)['R']
-})
-lws <- lowess(x=log(alpha),y=Rand)
-plot(lws$x, lws$y, type='l',
-     ylim=c(0.45,1),
-     xlab=expression(paste('log', alpha)),
-     ylab='Rand index')
-
-points(log(alpha), Rand + rnorm(length(Rand),0,1/200),
-     col=grey(0.9))
-@
+\begin{Schunk}
+\begin{Sinput}
+R> alpha <- 10^(-seq(0, 40, length.out=33))
+R> Rand <- sapply(alpha, function(alpha) {
+R+     fit <- profBinary(~0+., data=dat, param=list(alpha=alpha))
+R+     pci(rep(1:2, rep(111,2)), fit$clust)['R']
+R+ })
+R> lws <- lowess(x=log(alpha),y=Rand)
+R> plot(lws$x, lws$y, type='l',
+R+      ylim=c(0.45,1),
+R+      xlab=expression(paste('log', alpha)),
+R+      ylab='Rand index')
+R> points(log(alpha), Rand + rnorm(length(Rand),0,1/200),
+R+      col=grey(0.9))
+\end{Sinput}
+\end{Schunk}
 
 \begin{figure}[h!]
 \begin{center}
-<<fig=TRUE, echo=FALSE>>=
-<<figSim3>>
-@
+\includegraphics{profdpm-010}
 \end{center}
 \caption{Scatterplot of Rand indices (estimated versus simulated partition) against DPM precision parameter $\alpha$. Smaller $\alpha$ imposes a stronger penalty against partitions with many clusters. Light gray points represent estimated partitions. Jitter was added to aid in visual discrimination. The black line is a LOWESS estimate of the trend in Rand index versus $\alpha$. \label{fig:sim3}}
 \end{figure}

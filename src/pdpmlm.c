@@ -75,22 +75,40 @@ double pdpmlm_logpcls( pdpm_t * obj, unsigned int cls ) {
 
 double pdpmlm_logp( pdpm_t * obj ) {
     unsigned int i, cls = 0;
-    double logp;
+    double logp, accu = 0;
     logp = obj->ncl * log( obj->alp );
     for( i = 0; i < obj->ncl; i++ ) {
         while( obj->gcl[ cls ] == 0 ) { cls++; }
         logp += pdpmlm_logpcls( obj, cls );
         cls++;
     }
+    if(obj->flags & FLAG_PREDICT) {
+        cls = 0;
+        for( i = 0; i < obj->ncl; i++ ) {
+            while( obj->gcl[ cls ] == 0 ) { cls++; }
+            accu += pow(obj->gcl[ cls ], obj->lam);
+            cls++;
+        }
+        logp += log(obj->alp + accu);
+    }        
     return logp;
 }
 
 double pdpmlm_logponly( pdpm_t * obj, unsigned int * only, unsigned int size ) {
-    unsigned int i;
-    double logp;
+    unsigned int i, cls;
+    double logp, accu;
     logp = obj->ncl * log( obj->alp );
     for( i = 0; i < size; i++ ) {
         logp += pdpmlm_logpcls( obj, only[ i ] );
+    }
+    if(obj->flags & FLAG_PREDICT) {
+        cls = 0;
+        for( i = 0; i < obj->ncl; i++ ) {
+            while( obj->gcl[ cls ] == 0 ) { cls++; }
+            accu += pow(obj->gcl[ cls ], obj->lam);
+            cls++;
+        }
+        logp += log(obj->alp + accu);
     }
     return logp;
 }

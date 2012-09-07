@@ -1,13 +1,19 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.5.15)  18 JUL 2011 09:19
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.5.25)  7 SEP 2012 12:19
 entering extended mode
  %&-line parsing enabled.
 **profdpm.tex
 (./profdpm.tex
 LaTeX2e <2009/09/24>
 Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, loaded.
-(./jss.cls
-Document Class: jss 2009/09/24 2.0 jss class by Achim Zeileis
+yphenation, farsi, arabic, croatian, bulgarian, ukrainian, russian, czech, slov
+ak, danish, dutch, finnish, french, basque, ngerman, german, german-x-2009-06-1
+9, ngerman-x-2009-06-19, ibycus, monogreek, greek, ancientgreek, hungarian, san
+skrit, italian, latin, latvian, lithuanian, mongolian2a, mongolian, bokmal, nyn
+orsk, romanian, irish, coptic, serbian, turkish, welsh, esperanto, uppersorbian
+, estonian, indonesian, interlingua, icelandic, kurmanji, slovenian, polish, po
+rtuguese, spanish, galician, catalan, swedish, ukenglish, pinyin, loaded.
+(/usr/local/lib64/R/share/texmf/tex/latex/jss.cls
+Document Class: jss 2012/06/07 2.1 jss class by Achim Zeileis
 (/usr/share/texmf-texlive/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/share/texmf-texlive/tex/latex/base/size11.clo
@@ -298,11 +304,11 @@ File: hpdftex.def 2009/10/09 v6.79a Hyperref driver for pdfTeX
 
 
 Package hyperref Warning: Option `hyperindex' has already been used,
-(hyperref)                setting the option has no effect on input line 446.
+(hyperref)                setting the option has no effect on input line 433.
 
-Package hyperref Info: Option `colorlinks' set `true' on input line 446.
-Package hyperref Info: Option `linktocpage' set `true' on input line 446.
-Package hyperref Info: Option `plainpages' set `false' on input line 446.
+Package hyperref Info: Option `colorlinks' set `true' on input line 433.
+Package hyperref Info: Option `linktocpage' set `true' on input line 433.
+Package hyperref Info: Option `plainpages' set `false' on input line 433.
 ) (/usr/share/texmf-texlive/tex/latex/setspace/setspace.sty
 Package: setspace 2000/12/01 6.7 Contributed and Supported LaTeX2e package
 
@@ -354,7 +360,7 @@ LaTeX Font Info:    ... okay on input line 76.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 76.
 LaTeX Font Info:    ... okay on input line 76.
 
-(/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
+(/usr/share/texmf/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count103
 \scratchdimen=\dimen110
@@ -403,7 +409,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 81--82
 
  []
 
-[1
+
+Underfull \vbox (badness 1546) has occurred while \output is active []
+
+ [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]pdfTeX warning (ext4): dest
 ination with the same identifier (name{equation.2.1}) has been already used, du
@@ -425,9 +434,6 @@ Overfull \hbox (5.47499pt too wide) has occurred while \output is active
  []
 
 [3]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 Overfull \hbox (5.47499pt too wide) has occurred while \output is active
 \T1/aer/m/n/10.95 4 []
  []
@@ -443,23 +449,40 @@ Overfull \hbox (5.47499pt too wide) has occurred while \output is active
  []
 
 [6]
+LaTeX Font Info:    Try loading font information for TS1+aett on input line 219
+.
+ (/usr/local/lib64/R/share/texmf/tex/latex/ts1aett.fd
+File: ts1aett.fd 
+)
+LaTeX Font Info:    Try loading font information for TS1+cmtt on input line 219
+.
+
+(/usr/share/texmf-texlive/tex/latex/base/ts1cmtt.fd
+File: ts1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `TS1/aett/m/sl' in size <10.95> not available
+(Font)              Font shape `TS1/cmtt/m/sl' tried instead on input line 219.
+
+
 Overfull \hbox (5.47499pt too wide) has occurred while \output is active
 [] \T1/aer/m/n/10.95 7
  []
 
-[7]
+[7] <profdpm-004.pdf, id=219, 433.62pt x 433.62pt>
+File: profdpm-004.pdf Graphic file (type pdf)
+ <use profdpm-004.pdf>
 Overfull \hbox (5.47499pt too wide) has occurred while \output is active
 \T1/aer/m/n/10.95 8 []
  []
 
-[8]
+[8 <./profdpm-004.pdf>]
 Overfull \hbox (5.47499pt too wide) has occurred while \output is active
 [] \T1/aer/m/n/10.95 9
  []
 
-[9] <profdpm-004.pdf, id=225, 433.62pt x 433.62pt>
-File: profdpm-004.pdf Graphic file (type pdf)
- <use profdpm-004.pdf>
+[9] <profdpm-007.pdf, id=245, 433.62pt x 433.62pt>
+File: profdpm-007.pdf Graphic file (type pdf)
+ <use profdpm-007.pdf>
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -473,25 +496,13 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 [] \T1/aer/m/n/10.95 11
  []
 
-[11 <./profdpm-004.pdf>]
-LaTeX Font Info:    Try loading font information for TS1+aett on input line 346
-.
- (/usr/local/lib64/R/share/texmf/tex/latex/ts1aett.fd
-File: ts1aett.fd 
-)
-LaTeX Font Info:    Try loading font information for TS1+cmtt on input line 346
-.
+[11 <./profdpm-007.pdf>]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 345.
+ <profdpm-010.pdf, id=266, 433.62pt x 433.62pt>
+File: profdpm-010.pdf Graphic file (type pdf)
 
-(/usr/share/texmf-texlive/tex/latex/base/ts1cmtt.fd
-File: ts1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `TS1/aett/m/sl' in size <10.95> not available
-(Font)              Font shape `TS1/cmtt/m/sl' tried instead on input line 346.
-
-
-<profdpm-007.pdf, id=251, 433.62pt x 433.62pt>
-File: profdpm-007.pdf Graphic file (type pdf)
- <use profdpm-007.pdf>
+<use profdpm-010.pdf>
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -505,35 +516,22 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 [] \T1/aer/m/n/10.95 13
  []
 
-[13 <./profdpm-007.pdf>]
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 390.
- <profdpm-010.pdf, id=273, 433.62pt x 433.62pt>
-File: profdpm-010.pdf Graphic file (type pdf)
-
-<use profdpm-010.pdf>
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
+[13 <./profdpm-010.pdf>]
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 \T1/aer/m/n/10.95 14 []
  []
 
 [14]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 [] \T1/aer/m/n/10.95 15
  []
 
-[15 <./profdpm-010.pdf>] (./profdpm.bbl
+[15]
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 \T1/aer/m/n/10.95 16 []
  []
 
-[16]
+[16] (./profdpm.bbl
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 [] \T1/aer/m/n/10.95 17
  []
@@ -543,39 +541,45 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 \T1/aer/m/n/10.95 18 []
  []
 
-[18] (./profdpm.aux) ) 
+[18]
+Overfull \hbox (10.94998pt too wide) has occurred while \output is active
+[] \T1/aer/m/n/10.95 19
+ []
+
+[19] (./profdpm.aux) ) 
 Here is how much of TeX's memory you used:
- 6398 strings out of 495061
- 91949 string characters out of 1182621
- 163909 words of memory out of 3000000
- 9292 multiletter control sequences out of 15000+50000
+ 6415 strings out of 493848
+ 92342 string characters out of 1152823
+ 164949 words of memory out of 3000000
+ 9406 multiletter control sequences out of 15000+50000
  55699 words of font info for 105 fonts, out of 3000000 for 9000
- 28 hyphenation exceptions out of 8191
- 45i,10n,34p,1447b,440s stack positions out of 5000i,500n,10000p,200000b,50000s
- </home/matt/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcst1
-095.600pk></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmb10.pfb></
-usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/t
-exmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texliv
-e/fonts/type1/public/amsfonts/cm/cmbxsl10.pfb></usr/share/texmf-texlive/fonts/t
-ype1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/type1/public
-/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/c
-m/cmmi12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi6.pfb
-></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share
-/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texmf-tex
-live/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb></usr/share/texmf-texlive/f
-onts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/p
-ublic/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfont
-s/cm/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsl10.p
-fb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsltt10.pfb></usr/
-share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texmf
--texlive/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texmf-texlive/
-fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1
-/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsf
-onts/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmt
-t10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on profdpm.pdf (18 pages, 439570 bytes).
+ 714 hyphenation exceptions out of 8191
+ 45i,10n,34p,1448b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.e
+nc}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmb10.pfb></usr/sha
+re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-te
+xlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts
+/type1/public/amsfonts/cm/cmbxsl10.pfb></usr/share/texmf-texlive/fonts/type1/pu
+blic/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfon
+ts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi1
+2.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/
+share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-
+texlive/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texmf-texlive/fo
+nts/type1/public/amsfonts/cmextra/cmmib8.pfb></usr/share/texmf-texlive/fonts/ty
+pe1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/a
+msfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cm
+r9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsl10.pfb></us
+r/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsltt10.pfb></usr/share/t
+exmf-texlive/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texmf-texliv
+e/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texmf-texlive/fonts/t
+ype1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public
+/amsfonts/cm/cmsy8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm
+/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb
+></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/shar
+e/texmf/fonts/type1/public/cm-super/sfst1095.pfb>
+Output written on profdpm.pdf (19 pages, 416207 bytes).
 PDF statistics:
- 431 PDF objects out of 1000 (max. 8388607)
- 102 named destinations out of 1000 (max. 500000)
- 144 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 449 PDF objects out of 1000 (max. 8388607)
+ 104 named destinations out of 1000 (max. 500000)
+ 136 words of extra memory for PDF output out of 10000 (max. 10000000)
 

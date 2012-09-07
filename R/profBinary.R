@@ -1,5 +1,5 @@
 profBinary <- function(formula, data, clust, param, method="agglomerative", 
-                       maxiter=1000, crit=1e-6, verbose=FALSE) {
+                       maxiter=1000, crit=1e-6, verbose=FALSE, sampler=FALSE) {
     ###################################################
     if(missing(data))
         data <- sys.frame(sys.parent(0))
@@ -27,7 +27,7 @@ profBinary <- function(formula, data, clust, param, method="agglomerative",
         }
     }
 
-    if(is.null(param$alpha)) param$alpha <- 1/150
+    if(is.null(param$alpha)) param$alpha <- 1/1000
     if(is.null(param$a0)) param$a0 <- 1.00
     if(is.null(param$b0)) param$b0 <- 1.00
 
@@ -47,6 +47,12 @@ profBinary <- function(formula, data, clust, param, method="agglomerative",
         warning("verbose must be a logical, using default")
         verbose <- FALSE
     }
+    if(!is.logical(sampler)) {
+        warning("sampler must be a logical, using default")
+        sampler <- FALSE 
+    }
+    if(sampler && method != "gibbs")
+        warning("'sampler' has no effect for methods other than 'gibbs'")
 
     ###################################################
     #remove missing observations, issue warning
@@ -83,7 +89,7 @@ profBinary <- function(formula, data, clust, param, method="agglomerative",
     ###################################################
     #call the C function
     ret <- .Call("profBinary", rmm, rc, as.list(param), as.integer(method),
-                  as.integer(maxiter), as.double(crit), as.logical(verbose), 
+                  as.integer(maxiter), as.double(crit), verbose, sampler, 
                   PACKAGE="profdpm")  
     ret$model <- rmf
     return(ret)

@@ -11,8 +11,8 @@ This package facilitates profile inference (inference at the posterior mode) for
 \tabular{ll}{
 Package: \tab profdpm\cr
 Type: \tab Package\cr
-Version: \tab 2.0\cr
-Date: \tab 2010-04-15\cr
+Version: \tab 3.1\cr
+Date: \tab 2012-09-07\cr
 License: \tab GPL (>=2)\cr
 LazyLoad: \tab yes\cr
 }

@@ -1,24 +1,25 @@
 profLinear <- function(formula, data, group, clust, param, method="agglomerative", 
-                       maxiter=1000, crit=1e-6, verbose=FALSE) {
+                       maxiter=1000, crit=1e-6, verbose=FALSE, sampler=FALSE) {
     ###################################################
     #argument checking
     if(missing(data))
         data <- sys.frame(sys.parent(0))
-    mf <- model.frame(formula, data)
-    mm <- model.matrix(formula, data)
+    mf <- model.frame(formula, data, drop.unused.levels=TRUE)
+    mm <- model.matrix(formula, mf)
     mr <- model.response(mf, "numeric")
     if(missing(group)) {
         data$group <- seq(1, length(mr))
     } else {
         data$group <- as.factor(eval(substitute(group), data, environment(formula)))
     }
-    mf <- model.frame(formula, data, group=group)
+    mf <- model.frame(formula, data, group=group, drop.unused.levels=TRUE)
 
     if(missing(clust)) { 
         clust <- FALSE 
     } else {
-        clust <- as.factor(clust)
-        mf <- model.frame(formula, data, group=group, clust=clust)
+        data$clust <- as.factor(clust)
+        mf <- model.frame(formula, data, group=group, clust=clust,
+            drop.unused.levels=TRUE)
         mg <- model.extract(mf, "group")
         mc <- model.extract(mf, "clust")
         for(g in unique(mg))
@@ -40,11 +41,11 @@ profLinear <- function(formula, data, group, clust, param, method="agglomerative
         }
     }
 
-    if(is.null(param$alpha)) param$alpha <- 1/150
+    if(is.null(param$alpha)) param$alpha <- 1/1000
     if(is.null(param$a0)) param$a0 <- 0.001
     if(is.null(param$b0)) param$b0 <- 0.001
     if(is.null(param$m0)) param$m0 <- rep(0,ncol(mm))
-    if(is.null(param$s0)) param$s0 <- 1.000
+    if(is.null(param$s0)) param$s0 <- 0.001 
 
     if(!is.character(method))
         stop("method must be a character string")
@@ -53,7 +54,11 @@ profLinear <- function(formula, data, group, clust, param, method="agglomerative
     if(!is.numeric(crit) | crit < 0)
         stop("crit must be numeric and non-negative") 
     if(!is.logical(verbose))
-        stop("verbose must be a logical, using default")
+        stop("verbose must be a logical")
+    if(!is.logical(sampler))
+        stop("sampler must be a logical")
+    if(sampler && method != "gibbs")
+        warning("'sampler' has no effect for methods other than 'gibbs'")
 
     ###################################################
     #order the data according to group
@@ -89,7 +94,7 @@ profLinear <- function(formula, data, group, clust, param, method="agglomerative
     ###################################################
     #call the C function
     ret <- .Call("profLinear", mr, mm, mg, mc, as.list(param), as.integer(method),
-                  as.integer(maxiter), as.double(crit), as.logical(verbose), PACKAGE="profdpm")
+                  as.integer(maxiter), as.double(crit), verbose, sampler, PACKAGE="profdpm")
 
     ###################################################
     #undo ordering

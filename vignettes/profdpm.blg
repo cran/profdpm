@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: profdpm.aux
+The style file: jss.bst
+Database file #1: profdpm.bib
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+You've used 29 entries,
+            3140 wiz_defined-function locations,
+            831 strings with 9332 characters,
+and the built_in function-call counts, 22474 in all, are:
+= -- 1869
+> -- 501
+< -- 25
++ -- 202
+- -- 159
+* -- 1780
+:= -- 3032
+add.period$ -- 117
+call.type$ -- 29
+change.case$ -- 171
+chr.to.int$ -- 29
+cite$ -- 29
+duplicate$ -- 2039
+empty$ -- 2108
+format.name$ -- 256
+if$ -- 4554
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 339
+newline$ -- 158
+num.names$ -- 116
+pop$ -- 714
+preamble$ -- 1
+purify$ -- 169
+quote$ -- 0
+skip$ -- 521
+stack$ -- 0
+substring$ -- 1954
+swap$ -- 758
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 261
+warning$ -- 0
+while$ -- 190
+width$ -- 0
+write$ -- 391

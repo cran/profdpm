@@ -52,14 +52,14 @@ SEXP         getListElementByName(SEXP list, const char * name);
 
 //pdpm defaults
 #define DEFAULT_LAM    1.000
-#define DEFAULT_ALP    0.006666667  // 1/150
+#define DEFAULT_ALP    0.001  // 1/1000
 #define BAD_VCL UINT_MAX
 
 //pdpmlm defaults
 #define DEFAULT_LM_A0     0.001
 #define DEFAULT_LM_B0     0.001
 #define DEFAULT_LM_M0     0.000
-#define DEFAULT_LM_S0     1.000 
+#define DEFAULT_LM_S0     0.001 
 
 //pdpmbm defaults
 #define DEFAULT_BM_A0     1.000
@@ -70,8 +70,8 @@ SEXP         getListElementByName(SEXP list, const char * name);
 #define FLAG_OPTCRIT  1<<1  //has optimization criterion been met
 #define FLAG_DIRICHL  1<<2  //use cluster Dirichlet prior
 #define FLAG_SINGULA  1<<3  //singularities in optimization
-#define FLAG_UNUSED1  1<<4
-#define FLAG_UNUSED2  1<<5
+#define FLAG_PREDICT  1<<4  //use a special prediction posterior
+#define FLAG_SAMPLER  1<<5  //run the Gibbs method in sampler mode
 #define FLAG_UNUSED3  1<<6
 #define FLAG_UNUSED4  1<<7
 

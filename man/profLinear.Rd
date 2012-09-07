@@ -8,7 +8,7 @@ This function finds the most probable cluster partition in a linear product part
 
 \usage{
 profLinear(formula, data, group, clust, param, method="agglomerative",
-           maxiter=1000, crit=1e-6, verbose=FALSE)
+           maxiter=1000, crit=1e-6, verbose=FALSE, sampler=FALSE)
 }
 
 \arguments{
@@ -33,6 +33,7 @@ profLinear(formula, data, group, clust, param, method="agglomerative",
 \item{maxiter}{integer value specifying the maximum number of iterations for the optimization algorithm.}
 \item{crit}{numeric scalar constituting a stopping criterion for the \code{"stochastic"} and \code{"gibbs"} optimization methods.}
 \item{verbose}{logical value indicating whether the routine should be verbose in printing.}
+\item{sampler}{for the "gibbs" method, return the last sampled value instead of the MAP estimate}
 }
 
 \value{

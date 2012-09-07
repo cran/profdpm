@@ -1,8 +1,8 @@
 #include "profdpm.h"
 
 
-SEXP profLinear(SEXP y, SEXP x, SEXP group, SEXP clust,\
-    SEXP param, SEXP method, SEXP maxiter, SEXP crit, SEXP verbose) {
+SEXP profLinear(SEXP y, SEXP x, SEXP group, SEXP clust, SEXP param,\
+    SEXP method, SEXP maxiter, SEXP crit, SEXP verbose, SEXP sampler) {
     SEXP retval, elem, names, class, dim;
     pdpm_t * obj;
     pdpmlm_t * mdl;
@@ -58,6 +58,7 @@ SEXP profLinear(SEXP y, SEXP x, SEXP group, SEXP clust,\
  
     //set flags
     if( LOGICAL(verbose)[0] )    { obj->flags |= FLAG_VERBOSE; }
+    if( LOGICAL(sampler)[0] )    { obj->flags |= FLAG_SAMPLER; }
 
     //set pointers to methods
     obj->move     = &pdpmlm_move;
@@ -102,6 +103,12 @@ SEXP profLinear(SEXP y, SEXP x, SEXP group, SEXP clust,\
 
 
     //check values in param list
+    elem = getListElementByName(param, "predict");
+    if( elem != R_NilValue ) {
+        if( INTEGER(elem) ) {
+            obj->flags |= FLAG_PREDICT;
+        }
+    }
     elem = getListElementByName(param, "lambda");
     if( elem == R_NilValue ) { 
         obj->lam = DEFAULT_LAM; 

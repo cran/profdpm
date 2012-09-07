@@ -8,7 +8,7 @@ This function finds the most probable cluster partition in a binary product part
 
 \usage{
 profBinary(formula, data, clust, param, method="agglomerative",
-           maxiter=1000, crit=1e-6, verbose=FALSE)
+           maxiter=1000, crit=1e-6, verbose=FALSE, sampler=FALSE)
 }
 
 \arguments{
@@ -32,6 +32,7 @@ profBinary(formula, data, clust, param, method="agglomerative",
 \item{maxiter}{integer value specifying the maximum number of iterations for the optimization algorithm.}
 \item{crit}{numeric scalar constituting a stopping criterion for the \code{"stochastic"} and \code{"gibbs"}  optimization methods.}
 \item{verbose}{logical value indicating whether the routine should be verbose in printing.}
+\item{sampler}{for the "gibbs" method, return the last sampled value instead of the MAP estimate}
 }
 
 \value{
@@ -58,7 +59,26 @@ Missing observations (\code{NA}) are removed automatically and a warning is issu
 
 \examples{
 library(profdpm)
+set.seed(42)
 
+# simulate two clusters of multivariate binary data
+p <- seq(0.9,0.1,length.out=3)
+y1 <- matrix(rbinom(333, 1, p), 111, 3, TRUE)
+y2 <- matrix(rbinom(333, 1, rev(p)), 111, 3, TRUE)
+dat <- as.data.frame(rbind(y1, y2))
+
+# fit the PPM
+fitb <- profBinary(~0+., data=dat)
+
+# plot the data ordered by cluster
+image(t(as.matrix(fitb$model)[order(fitb$clust),]),
+      xaxt="n", yaxt="n", col=0:1)
+axis(3, labels=paste("V", 1:3, sep=""), at=0:2/2)
+
+# plot the data ordered and colored by cluster
+image(t(as.matrix(fitb$model) * fitb$clust)[, order(fitb$clust)],
+      xaxt="n", yaxt="n", col=0:length(unique(fitb$clust)))
+axis(3, labels=paste("V", 1:3, sep=""), at=0:2/2)
 }
 
 \author{Matt Shotwell}
