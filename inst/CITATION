@@ -1,0 +1,19 @@
+citHeader("To cite profdpm in publications use:")
+
+citEntry(entry = "Article",
+  title        = "{profdpm}: An {R} Package for {MAP} Estimation in a Class of Conjugate Product Partition Models",
+  author       = personList(as.person("Matthew S. Shotwell")),
+  journal      = "Journal of Statistical Software",
+  year         = "2013",
+  volume       = "53",
+  number       = "8",
+  pages        = "1--18",
+  url          = "http://www.jstatsoft.org/v53/i08/",
+
+  textVersion  =
+  paste("Matthew S. Shotwell (2013).",
+        "profdpm: An R Package for MAP Estimation in a Class of Conjugate Product Partition Models.",
+        "Journal of Statistical Software, 53(8), 1-18.",
+        "URL http://www.jstatsoft.org/v53/i08/.")
+)
+

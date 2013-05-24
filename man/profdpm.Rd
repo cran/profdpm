@@ -11,8 +11,8 @@ This package facilitates profile inference (inference at the posterior mode) for
 \tabular{ll}{
 Package: \tab profdpm\cr
 Type: \tab Package\cr
-Version: \tab 3.2\cr
-Date: \tab 2012-12-24\cr
+Version: \tab 3.3\cr
+Date: \tab 2013-05-24\cr
 License: \tab GPL (>=2)\cr
 LazyLoad: \tab yes\cr
 }
@@ -27,5 +27,7 @@ Contents
 Matt Shotwell
 Maintainer: Matt Shotwell <matt.shotwell@vanderbilt.edu>
 }
-
+\references{
+Matthew S. Shotwell (2013). \pkg{profdpm}: An R Package for MAP Estimation in a Class of Conjugate Product Partition Models. \emph{Journal of Statistical Software}, \bold{53(8)}, 1-18. URL http://www.jstatsoft.org/v53/i08/.
+}
 \keyword{ package }

@@ -42,7 +42,7 @@ SEXP profBinary(SEXP y, SEXP clust, SEXP param, SEXP method,\
     mdl = obj->model;
 
     //set pointers to data
-    mdl->y = INTEGER(y);
+    mdl->y = (unsigned int *)INTEGER(y);
     mdl->q = INTEGER(dim)[ 1 ];
    
     //allocate and zero memory gqcl
@@ -50,7 +50,7 @@ SEXP profBinary(SEXP y, SEXP clust, SEXP param, SEXP method,\
 
     //check values in param list
     elem = getListElementByName(param, "lambda");
-    if( elem == R_NilValue ) { obj->flags != FLAG_DIRICHL; obj->lam = 0; }
+    if( elem == R_NilValue ) { obj->flags |= FLAG_DIRICHL; obj->lam = 0; }
     else { obj->lam = REAL(elem)[0]; }
     elem = getListElementByName(param, "alpha");
     if( elem == R_NilValue ) {

@@ -96,7 +96,7 @@ double pdpmlm_logp( pdpm_t * obj ) {
 
 double pdpmlm_logponly( pdpm_t * obj, unsigned int * only, unsigned int size ) {
     unsigned int i, cls;
-    double logp, accu;
+    double logp, accu = 0.0;
     logp = obj->ncl * log( obj->alp );
     for( i = 0; i < size; i++ ) {
         logp += pdpmlm_logpcls( obj, only[ i ] );

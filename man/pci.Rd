@@ -29,6 +29,8 @@ This function computes indices of similarity between two factors representing th
 } 
 
 \references{
+Matthew S. Shotwell (2013). \pkg{profdpm}: An R Package for MAP Estimation in a Class of Conjugate Product Partition Models. \emph{Journal of Statistical Software}, \bold{53(8)}, 1-18. URL http://www.jstatsoft.org/v53/i08/.
+
 Rand, W. (1971) Objective Criteria for the Evaluation of Clustering Methods. Journal of the American Statistical Association 66:846-850
 
 Fowlkes, E. B. and Mallows, C. L. (1983) A Method for Comparing Two Hierarchical Clusterings. Journal of the American Statistical Association 78:553-569

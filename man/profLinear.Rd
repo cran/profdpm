@@ -93,6 +93,8 @@ for(i in 1:length(fit$m)) {
 }
 \author{Matt Shotwell}
 \references{
+Matthew S. Shotwell (2013). \pkg{profdpm}: An R Package for MAP Estimation in a Class of Conjugate Product Partition Models. \emph{Journal of Statistical Software}, \bold{53(8)}, 1-18. URL http://www.jstatsoft.org/v53/i08/.
+
 Ward, J. H. (1963) Heirarchical Grouping to Optimize an Objective Function. Journal of the American Statistical Association 58:236-244 
 MacEachern, S. N. (1994) Estimating Normal Means with Conjugate Style Dirichlet Process Prior. Communications in Statistics B 23:727-741 
 }

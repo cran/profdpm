@@ -25,6 +25,9 @@ A list of lists, one for each unique cluster, each with the following elements:
 \author{
 Matt Shotwell <matt.shotwell@vanderbilt.edu>
 }
+\references{
+Matthew S. Shotwell (2013). \pkg{profdpm}: An R Package for MAP Estimation in a Class of Conjugate Product Partition Models. \emph{Journal of Statistical Software}, \bold{53(8)}, 1-18. URL http://www.jstatsoft.org/v53/i08/.
+}
 \seealso{
 \code{\link{profBinary}}
 }

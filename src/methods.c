@@ -110,7 +110,7 @@ void method_ssplit( pdpm_t * obj, unsigned int grp1, unsigned int grp2, unsigned
   
 double method_ssplitp( pdpm_t * obj, unsigned int grp1, unsigned int grp2, unsigned int cls) {
     unsigned int only[2];
-    double del;
+    double del = 0.0;
 
     //cannot split the same group
     if( grp1 == grp2 ) return 0.0;
